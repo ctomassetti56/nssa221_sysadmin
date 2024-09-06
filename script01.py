@@ -50,7 +50,7 @@ def dnsRes():
 
 def main():
     printMenu()
-    defaultGateway()
+    getUserInput()
 
 
 if __name__ == "__main__":
