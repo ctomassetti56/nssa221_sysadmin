@@ -42,7 +42,7 @@ def defaultGateway():
        for line in output:
            if line.startswith('0.0.0.0'):
                tokens = line.split()
-               return tokens[1]
+               print(tokens[1])
 
     except subprocess.CalledProcessError as error:
         print(f"Error executing command: {error}")
