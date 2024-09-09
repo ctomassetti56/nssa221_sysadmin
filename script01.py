@@ -3,6 +3,8 @@ import os
 import subprocess
 import sys
 
+os.system('clear')
+
 def printMenu():
     print("1.) Display the default gateway \n" +
           "2.) Test Local Connectivity \n" +
@@ -14,22 +16,20 @@ def getUserInput():
     while True:
         printMenu()
         decision = input("Enter a menu option: ")
-        intDecision = int(decision)
-        if intDecision >= 1 and intDecision <= 5:
-            if intDecision == 1:
-                defaultGateway()
-                break
-            elif intDecision == 2:
-                localConnect()
-                break
-            elif intDecision == 3:
-                remoteConnect()
-                break
-            elif intDecision == 4:
-                dnsRes()
-                break
-            elif intDecision == 5:
-                sys.exit("Quiting")
+        if decision == '1':
+            defaultGateway()
+            break
+        elif decision == '2':
+            localConnect()
+            break
+        elif decision == '3':
+            remoteConnect()
+            break
+        elif decision == '4':
+            dnsRes()
+            break
+        elif decision == '5':
+            sys.exit("Quiting")
         else:
             os.system('clear')
             print("Input was not valid... Enter a valid menu option")
