@@ -51,7 +51,7 @@ def defaultGateway():
 
 def localConnect():
     try:
-        result = subprocess.run(['ping', '-c', '3', '192.168.1.1'], catchOutput = subprocess.PIPE, catchError = subprocess.PIPE)
+        result = subprocess.run(['ping', '-c', '3', '192.168.1.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         if result.returncode == 0:
             return "The connection was SUCCESSFUL!"
