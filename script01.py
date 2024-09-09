@@ -37,8 +37,12 @@ def getUserInput():
 def defaultGateway():
     try:
        result = subprocess.run(['route', '-n'], capture_output=True, text=True, check=True)
-       output = result.stdout
-       print(output)
+       output = result.stdout.splitlines()
+
+       for line in output:
+           if line.startswith('0.0.0.0'):
+               tokens = line.split()
+               return tokens[1]
 
     except subprocess.CalledProcessError as error:
         print(f"Error executing command: {error}")
