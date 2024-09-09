@@ -17,10 +17,10 @@ def getUserInput():
         printMenu()
         decision = input("Enter a menu option: ")
         if decision == '1':
-            defaultGateway()
+            print(defaultGateway())
             break
         elif decision == '2':
-            localConnect()
+            print(localConnect())
             break
         elif decision == '3':
             remoteConnect()
@@ -42,14 +42,24 @@ def defaultGateway():
        for line in output:
            if line.startswith('0.0.0.0'):
                tokens = line.split()
-               print(tokens[1])
+               return tokens[1]
 
     except subprocess.CalledProcessError as error:
-        print(f"Error executing command: {error}")
+        return "Error executing the command" + error
+    
     return
 
 def localConnect():
-    return
+    try:
+        result = subprocess.run(['ping', '-c', '3', '192.168.1.1'], catchOutput = subprocess.PIPE, catchError = subprocess.PIPE)
+
+        if result.returncode == 0:
+            return "The connection was SUCCESSFUL!"
+        else:
+            return "WARNING... the connection has FAILED"
+    
+    except Exception as error:
+        return "An error has occurred" + error
 
 def remoteConnect():
     return
