@@ -47,7 +47,7 @@ def defaultGateway():
     except subprocess.CalledProcessError as error:
         return "Error executing the command" + error
     
-    return getUserInput()
+    return
 
 def localConnect():
     try:
@@ -79,7 +79,8 @@ def dnsRes():
     
 
 def main():
-    getUserInput()
+    while True:
+        getUserInput()
 
 
 if __name__ == "__main__":
