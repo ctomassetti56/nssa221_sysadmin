@@ -23,7 +23,7 @@ def getUserInput():
             print(localConnect())
             break
         elif decision == '3':
-            remoteConnect()
+            print(remoteConnect())
             break
         elif decision == '4':
             dnsRes()
