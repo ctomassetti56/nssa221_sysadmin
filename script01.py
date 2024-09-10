@@ -3,7 +3,7 @@ import os
 import subprocess
 import sys
 
-os.system('clear') #clears the terminal for cleaner look
+os.system('clear') # clears the terminal for cleaner look
 
 def printMenu():
     # prints the menu options that the user can choose from
@@ -17,7 +17,7 @@ def printMenu():
 def getUserInput():
     # collects users menu option to call appropriate function
     while True:
-        printMenu() #prints the menu so user can see choices
+        printMenu() # prints the menu so user can see choices
         decision = input("Enter a menu option: ")
         if decision == '1': # print the default gateway
             print(defaultGateway())
@@ -34,17 +34,18 @@ def getUserInput():
         elif decision == '5': # exit the program
             sys.exit("Quiting")
         else:
-            os.system('clear')
+            os.system('clear') # clears the terminal before reprinting menu
             print("Input was not valid... Enter a valid menu option")
 
 
 def defaultGateway():
+    # uses the route -n command to and splices the output to print the computers default gateway address
     try:
        DGW = subprocess.run(['route', '-n'], capture_output=True, text=True, check=True)
        output = DGW.stdout.splitlines()
 
        for line in output:
-           if line.startswith('0.0.0.0'):
+           if line.startswith('0.0.0.0'): #line in output that contains the default gateway
                tokens = line.split()
                return tokens[1]
 
@@ -55,10 +56,11 @@ def defaultGateway():
 
 
 def localConnect():
+    # uses the ping -c 3 command to ping the loopback address 3 times and prints the result
     try:
         loopBack = subprocess.run(['ping', '-c', '3', '127.0.0.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if loopBack.returncode == 0:
+        if loopBack.returncode == 0: # code 0 = successful ping 
             return "The connection was SUCCESSFUL!"
         else:
             return "WARNING... the connection has FAILED"
@@ -68,10 +70,11 @@ def localConnect():
 
 
 def remoteConnect():
+    # uses the ping -c 3 command to ping the RIT DNS server 3 times and prints the result
     try:
         RC = subprocess.run(['ping', '-c', '3', '129.21.3.17'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if RC.returncode == 0:
+        if RC.returncode == 0: # code 0 = successful ping
             return "The connection was SUCCESSFUL!"
         else:
             return "WARNING... the connection has FAILED"
@@ -81,10 +84,11 @@ def remoteConnect():
 
 
 def dnsRes():
+    # uses nslookup to attempt to reach the www.google.com server and prints the result
     try:
         DNS = subprocess.run(['nslookup', 'www.google.com'], capture_output=True, text=True)
 
-        if DNS.returncode == 0:
+        if DNS.returncode == 0: # code 0 = success in reaching server
             return "The google server is reachable!"
         else:
             return "WARNING... the google server is UNREACHABLE"
@@ -94,14 +98,15 @@ def dnsRes():
 
 
 def main():
-    while True:
+    # main function
+    while True: #loops until user chooses to exit the program
         getUserInput()
-        prompt = input("Run another test? (y/n): ")
-        if prompt == 'y':
-            os.system('clear')
+        prompt = input("Run another test? (y/n): ") # I put this in the code so the user can decid how long they want to look at 
+        if prompt == 'y':                           # the results instead of immediatly prompting the user for another menu option
+            os.system('clear') # clears terminal for new menu
             continue
         else:
-            sys.exit("Quiting")
+            sys.exit("Quiting") # exits the program
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": # for testing
+    main() # calls main function
