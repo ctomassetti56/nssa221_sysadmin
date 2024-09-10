@@ -36,8 +36,8 @@ def getUserInput():
 
 def defaultGateway():
     try:
-       result = subprocess.run(['route', '-n'], capture_output=True, text=True, check=True)
-       output = result.stdout.splitlines()
+       DGW = subprocess.run(['route', '-n'], capture_output=True, text=True, check=True)
+       output = DGW.stdout.splitlines()
 
        for line in output:
            if line.startswith('0.0.0.0'):
@@ -47,13 +47,13 @@ def defaultGateway():
     except subprocess.CalledProcessError as error:
         return "Error executing the command" + error
     
-    return
+    return getUserInput()
 
 def localConnect():
     try:
-        result = subprocess.run(['ping', '-c', '3', '127.0.0.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        loopBack = subprocess.run(['ping', '-c', '3', '127.0.0.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if result.returncode == 0:
+        if loopBack.returncode == 0:
             return "The connection was SUCCESSFUL!"
         else:
             return "WARNING... the connection has FAILED"
@@ -62,10 +62,21 @@ def localConnect():
         return "An error has occurred" + error
 
 def remoteConnect():
-    return
+    try:
+        RC = subprocess.run(['ping', '-c', '3', '129.21.3.17'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        if RC.returncode == 0:
+            return "The connection was SUCCESSFUL!"
+        else:
+            return "WARNING... the connection has FAILED"
+    
+    except Exception as error:
+        return "An error has occurred" + error
+
 
 def dnsRes():
     return
+    
 
 def main():
     getUserInput()
