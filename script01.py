@@ -12,6 +12,7 @@ def printMenu():
           "4.) Test DNS Resolution \n" +
           "5.) Exit/Quit the script")
     
+
 def getUserInput():
     while True:
         printMenu()
@@ -26,13 +27,14 @@ def getUserInput():
             print(remoteConnect())
             break
         elif decision == '4':
-            dnsRes()
+            print(dnsRes())
             break
         elif decision == '5':
             sys.exit("Quiting")
         else:
             os.system('clear')
             print("Input was not valid... Enter a valid menu option")
+
 
 def defaultGateway():
     try:
@@ -49,6 +51,7 @@ def defaultGateway():
     
     return
 
+
 def localConnect():
     try:
         loopBack = subprocess.run(['ping', '-c', '3', '127.0.0.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -60,6 +63,7 @@ def localConnect():
     
     except Exception as error:
         return "An error has occurred" + error
+
 
 def remoteConnect():
     try:
@@ -75,14 +79,27 @@ def remoteConnect():
 
 
 def dnsRes():
-    return
-    
+    try:
+        DNS = subprocess.run(['nslookup', 'www.google.com'], capture_output=True, text=True)
+
+        if DNS.returncode == 0:
+            return "The google server is reachable!"
+        else:
+            return "WARNING... the google server is UNREACHABLE"
+        
+    except Exception as error:
+        return "An error has occured" + error
+
 
 def main():
     while True:
         getUserInput()
-        os.system('clear')
-
+        prompt = input("Run another test? (y/n): ")
+        if prompt == 'y':
+            os.system('clear')
+            continue
+        else:
+            sys.exit("Quiting")
 
 if __name__ == "__main__":
     main()
