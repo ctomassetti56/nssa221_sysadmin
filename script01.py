@@ -3,9 +3,10 @@ import os
 import subprocess
 import sys
 
-os.system('clear')
+os.system('clear') #clears the terminal for cleaner look
 
 def printMenu():
+    # prints the menu options that the user can choose from
     print("1.) Display the default gateway \n" +
           "2.) Test Local Connectivity \n" +
           "3.) Test Remote Connectivity \n" +
@@ -14,22 +15,23 @@ def printMenu():
     
 
 def getUserInput():
+    # collects users menu option to call appropriate function
     while True:
-        printMenu()
+        printMenu() #prints the menu so user can see choices
         decision = input("Enter a menu option: ")
-        if decision == '1':
+        if decision == '1': # print the default gateway
             print(defaultGateway())
             break
-        elif decision == '2':
+        elif decision == '2': # ping the loopback address 127.0.0.1
             print(localConnect())
             break
-        elif decision == '3':
+        elif decision == '3': # ping the RIT DNS server address 129.21.3.17
             print(remoteConnect())
             break
-        elif decision == '4':
+        elif decision == '4': # ping www.google.com
             print(dnsRes())
             break
-        elif decision == '5':
+        elif decision == '5': # exit the program
             sys.exit("Quiting")
         else:
             os.system('clear')
