@@ -63,7 +63,7 @@ def localConnect():
 
 def remoteConnect():
     try:
-        RC = subprocess.run(['ping', '-c', '3', '1.1.1.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        RC = subprocess.run(['ping', '-c', '3', '129.21.3.17'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         if RC.returncode == 0:
             return "The connection was SUCCESSFUL!"
