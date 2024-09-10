@@ -81,6 +81,7 @@ def dnsRes():
 def main():
     while True:
         getUserInput()
+        os.system('clear')
 
 
 if __name__ == "__main__":
