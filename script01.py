@@ -1,4 +1,17 @@
 #!/usr/bin/python3
+
+# @author Christian Tomassetti
+# @nssa221.01
+# @script01 assignment
+# @project ping_test
+
+# a script that gives the user 5 menu options including displaying the computers gateway,
+# pinging the loopback address, pinging the RIT DNS address, testing connection to the
+# google server, and exiting the program. The program is linux compatable and will not run
+# in the windows terminal due to linux specific commands. Most of the code that uses subprocess.run
+# was discovered through the Pydocs documentation website or learned in class from lecture or
+# code written on the white board.
+
 import os
 import subprocess
 import sys
@@ -101,7 +114,7 @@ def main():
     # main function
     while True: #loops until user chooses to exit the program
         getUserInput()
-        prompt = input("Run another test? (y/n): ") # I put this in the code so the user can decid how long they want to look at 
+        prompt = input("Run another test? (y/n): ") # I put this in the code so the user can decide how long they want to look at 
         if prompt == 'y':                           # the results instead of immediatly prompting the user for another menu option
             os.system('clear') # clears terminal for new menu
             continue
