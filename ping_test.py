@@ -33,7 +33,7 @@ def getUserInput():
         printMenu() # prints the menu so user can see choices
         decision = input("Enter a menu option: ")
         if decision == '1': # print the default gateway
-            print(defaultGateway())
+            print("The Default Gateway is: " + defaultGateway())
             break
         elif decision == '2': # ping the default gateway
             print(localConnect())
