@@ -6,7 +6,7 @@
 # @project ping_test
 
 # a script that gives the user 5 menu options including displaying the computers gateway,
-# pinging the loopback address, pinging the RIT DNS address, testing connection to the
+# pinging the default gateway address, pinging the RIT DNS address, testing connection to the
 # google server, and exiting the program. The program is linux compatable and will not run
 # in the windows terminal due to linux specific commands. Most of the code that uses subprocess.run
 # was discovered through the Pydocs documentation website or learned in class from lecture or
@@ -35,7 +35,7 @@ def getUserInput():
         if decision == '1': # print the default gateway
             print(defaultGateway())
             break
-        elif decision == '2': # ping the loopback address 127.0.0.1
+        elif decision == '2': # ping the default gateway
             print(localConnect())
             break
         elif decision == '3': # ping the RIT DNS server address 129.21.3.17
@@ -69,11 +69,11 @@ def defaultGateway():
 
 
 def localConnect():
-    # uses the ping -c 3 command to ping the loopback address 3 times and prints the result
+    # uses the ping -c 3 command to ping the default gateway address 3 times and prints the result
     try:
-        loopBack = subprocess.run(['ping', '-c', '3', '127.0.0.1'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(['ping', '-c', '3', defaultGateway()], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if loopBack.returncode == 0: # code 0 = successful ping 
+        if result.returncode == 0: # code 0 = successful ping
             return "The connection was SUCCESSFUL!"
         else:
             return "WARNING... the connection has FAILED"
