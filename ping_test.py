@@ -71,9 +71,9 @@ def defaultGateway():
 def localConnect():
     # uses the ping -c 3 command to ping the default gateway address 3 times and prints the result
     try:
-        result = subprocess.run(['ping', '-c', '3', defaultGateway()], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        LC = subprocess.run(['ping', '-c', '3', defaultGateway()], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if result.returncode == 0: # code 0 = successful ping
+        if LC.returncode == 0: # code 0 = successful ping
             return "The connection was SUCCESSFUL!"
         else:
             return "WARNING... the connection has FAILED"
