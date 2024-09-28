@@ -44,8 +44,8 @@ def system_information():
 
 def storage_information():
     print("Storage Information:")
-    hard_drive_capacity = subprocess.check_output("df -h | grep /dev/sda1 | awk '{print $2}'", shell=True).decode().strip()
-    available_space = subprocess.check_output("df -h | grep /dev/sda1 | awk '{print $4}'", shell=True).decode().strip()
+    hard_drive_capacity = subprocess.check_output("df -h | grep /dev/sdc | awk '{print $2}'", shell=True).decode().strip()
+    available_space = subprocess.check_output("df -h | grep /dev/sdc | awk '{print $4}'", shell=True).decode().strip()
     print("Hard Drive Capacity:\t" + str(hard_drive_capacity))
     print("Available Space:\t" + str(available_space))
 
@@ -77,6 +77,7 @@ def main():
     processor_information()
     print('\n')
     memory_information()
+    print('\n')
 
 if __name__ == '__main__':
     main()
