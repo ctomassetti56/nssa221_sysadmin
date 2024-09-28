@@ -31,7 +31,10 @@ def network_information():
     print("Gateway:\t\t" + str(gateway))
     print("Network Mask:\t\t" + str(network_mask))
     print("DNS1:\t\t\t" + str(dns1))
-    print("DNS2:\t\t\t" + str(dns2))
+    if dns2:
+        print("DNS2:\t\t\t" + str(dns2))
+    else:
+        print("DNS2:\t\t\tN/A")
 
 def system_information():
     print("System Information:")
@@ -44,8 +47,19 @@ def system_information():
 
 def storage_information():
     print("Storage Information:")
-    hard_drive_capacity = subprocess.check_output("df -h | grep /dev/sdc | awk '{print $2}'", shell=True).decode().strip()
-    available_space = subprocess.check_output("df -h | grep /dev/sdc | awk '{print $4}'", shell=True).decode().strip()
+    try:
+        # Find the line corresponding to the root filesystem
+        root_fs_line = subprocess.check_output("df -h | grep ' /$'", shell=True).decode().strip()
+        # Split the line into columns
+        columns = root_fs_line.split()
+        # Extract the relevant information
+        hard_drive_capacity = columns[1]
+        available_space = columns[3]
+    except subprocess.CalledProcessError as e:
+        print("Error executing command: ", e)
+        hard_drive_capacity = "N/A"
+        available_space = "N/A"
+    
     print("Hard Drive Capacity:\t" + str(hard_drive_capacity))
     print("Available Space:\t" + str(available_space))
 
