@@ -34,7 +34,7 @@ def network_information():
     if dns2:
         print("DNS2:\t\t\t" + str(dns2))
     else:
-        print("DNS2:\t\t\tN/A")
+        print("\033[91mDNS2:\t\t\tN/A\033[0m")
 
 def system_information():
     print("\033[92mSystem Information:\033[0m")
@@ -56,9 +56,9 @@ def storage_information():
         hard_drive_capacity = columns[1]
         available_space = columns[3]
     except subprocess.CalledProcessError as e:
-        print("Error executing command: ", e)
-        hard_drive_capacity = "N/A"
-        available_space = "N/A"
+        print("\033[91mError executing command: \033[0m", e)
+        hard_drive_capacity = "\033[91mN/A\033[0m"
+        available_space = "\033[91mN/A\033[0m"
     
     print("Hard Drive Capacity:\t" + str(hard_drive_capacity))
     print("Available Space:\t" + str(available_space))
