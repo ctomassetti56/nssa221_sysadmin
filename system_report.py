@@ -25,7 +25,7 @@ os.system('clear') # clears the terminal for cleaner look
 
 def stamp():
     # Display the date and time
-    print("\033[91mSystem Report - " + os.system('date') + "\033[0m") # display the date and time
+    print("\033[91mSystem Report - " + str(os.system('date')) + "\033[0m") # display the date and time
 
 def device_information():
     # Display the hostname and domain name of the device
