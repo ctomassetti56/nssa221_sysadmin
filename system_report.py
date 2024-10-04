@@ -141,16 +141,13 @@ def output_information_to_file():
             ip_address = socket.gethostbyname(socket.gethostname())
             gateway = subprocess.check_output("ip route | grep default | awk '{print $3}'", shell=True).decode().strip()
             network_mask = subprocess.check_output("ip route | grep kernel | awk '{print $1}'", shell=True).decode().splitlines()[0].strip()
-            dns1 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()[0].strip()
-            dns2 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $3}'", shell=True).decode().strip()
+            dns_servers = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()
             f.write("IP Address:\t\t" + str(ip_address) + "\n")
             f.write("Gateway:\t\t" + str(gateway) + "\n")
             f.write("Network Mask:\t\t" + str(network_mask) + "\n")
-            f.write("DNS1:\t\t\t" + str(dns1) + "\n")
-            if dns2: # If DNS2 is not available, print N/A
-                f.write("DNS2:\t\t\t" + str(dns2) + "\n\n")
-            else:
-                f.write("DNS2:\t\t\tN/A\n\n")
+            for i, dns in enumerate(dns_servers, start=1):
+                f.write(f"DNS {i}:\t\t\t{dns}\n")
+            f.write("\n")
             
             f.write("System Information:\n")
             os_info = {}
