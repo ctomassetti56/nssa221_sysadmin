@@ -26,7 +26,7 @@ os.system('clear') # clears the terminal for cleaner look
 
 def stamp():
     # Display the date and time
-    time_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    time_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"\033[91mSystem Report - {time_date}\033[0m")
 
 def device_information():
