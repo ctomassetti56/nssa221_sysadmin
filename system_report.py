@@ -201,6 +201,8 @@ def output_information_to_file():
 
 def main():
     # Display the system information
+    stamp()
+    print('\n')
     device_information()
     print('\n')
     network_information()
