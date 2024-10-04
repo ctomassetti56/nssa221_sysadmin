@@ -17,6 +17,7 @@
 # demonstarted during the class lecture. Some AI was used for special cases such as DNS2 not being available, and if the file already
 # exists, the user will be prompted to overwrite, append, or quit. If the user chooses to append, the file will open in append mode.
 
+import datetime
 import os
 import subprocess
 import socket
@@ -25,8 +26,8 @@ os.system('clear') # clears the terminal for cleaner look
 
 def stamp():
     # Display the date and time
-    time_date = os.system('date') # get the date and time
-    print("\033[91mSystem Report - " + str(time_date) + "\033[0m") # display the date and time
+    time_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"\033[91mSystem Report - {time_date}\033[0m")
 
 def device_information():
     # Display the hostname and domain name of the device
