@@ -198,7 +198,8 @@ def output_information_to_file():
             f.write("Total RAM:\t\t" + str(total_ram) + "\n")
             f.write("Available RAM:\t\t" + str(available_ram) + "\n")
         
-        subprocess.run(["xdg-open", file_path]) # Open the file in the default text editor
+        # print that the information was written to the file and is saved in the current directory
+        print(f"Information written to {file_path} in the current directory.")
     except IOError as e:
         print(f"Error writing to file {file_path}: {e}")
 
