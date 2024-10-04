@@ -115,7 +115,7 @@ def output_information_to_file():
     # If the user chooses to append, open the file in append mode
     # If the user chooses to overwrite, open the file in write mode
     # If the user chooses to quit, do not write to the file
-    file_path = 'system_report.txt'
+    file_path = 'system_report.log'
     
     if os.path.exists(file_path):
         # Prompt the user to overwrite, append, or quit
