@@ -23,6 +23,11 @@ import socket
 
 os.system('clear') # clears the terminal for cleaner look
 
+def stamp():
+    # Display the date and time
+    print("\033[92mSystem Report - \033[0m")
+    os.system('date') # display the date
+
 def device_information():
     # Display the hostname and domain name of the device
     print("\033[92mDevice Information:\033[0m")
