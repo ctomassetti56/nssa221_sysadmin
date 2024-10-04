@@ -7,7 +7,6 @@
 
 import os
 import subprocess
-import sys
 import platform
 import socket
 
@@ -48,11 +47,8 @@ def system_information():
 def storage_information():
     print("\033[92mStorage Information:\033[0m")
     try:
-        # Find the line corresponding to the root filesystem
         root_fs_line = subprocess.check_output("df -h | grep ' /$'", shell=True).decode().strip()
-        # Split the line into columns
         columns = root_fs_line.split()
-        # Extract the relevant information
         hard_drive_capacity = columns[1]
         available_space = columns[3]
     except subprocess.CalledProcessError as e:
@@ -78,6 +74,35 @@ def memory_information():
     available_ram = subprocess.check_output("free -h | grep Mem | awk '{print $7}'", shell=True).decode().strip()
     print("Total RAM:\t\t" + str(total_ram))
     print("Available RAM:\t\t" + str(available_ram))
+
+def output_information_to_file():
+    with open('system_report.txt', 'w') as f:
+        f.write("Device Information:\n")
+        f.write("Hostname:\t\t" + str(platform.node()) + "\n")
+        f.write("Domain:\t\t\t" + str(socket.getfqdn()) + "\n\n")
+        f.write("Network Information:\n")
+        f.write("IP Address:\t\t" + str(socket.gethostbyname(socket.gethostname())) + "\n")
+        f.write("Gateway:\t\t" + str(subprocess.check_output("ip route | grep default | awk '{print $3}'", shell=True).decode().strip()) + "\n")
+        f.write("Network Mask:\t\t" + str(subprocess.check_output("ip route | grep kernel | awk '{print $1}'", shell=True).decode().splitlines()[0].strip()) + "\n")
+        f.write("DNS1:\t\t\t" + str(subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()[0].strip()) + "\n")
+        f.write("DNS2:\t\t\t" + str(subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $3}'", shell=True).decode().strip()) + "\n\n")
+        f.write("System Information:\n")
+        f.write("Operating System:\t" + str(platform.system()) + "\n")
+        f.write("OS Version:\t\t" + str(platform.release()) + "\n")
+        f.write("Kernel Version:\t\t" + str(subprocess.check_output('uname -r', shell=True).decode().strip()) + "\n\n")
+        f.write("Storage Information:\n")
+        try:
+            root_fs_line = subprocess.check_output("df -h | grep ' /$'", shell=True).decode().strip()
+            columns = root_fs_line.split()
+            hard_drive_capacity = columns[1]
+            available_space = columns[3]
+        except subprocess.CalledProcessError as e:
+            hard_drive_capacity = "N/A"
+            available_space = "N/A"
+        f.write("Hard Drive Capacity:\t" + str(hard_drive_capacity) + "\n")
+        f.write("Available Space:\t" + str(available_space) + "\n\n")
+        f.write("Processor Information:\n")
+        f.write("CPU Model:\t\t" + str(subprocess.check_output("cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $4, $5, $6, $7, $8, $9}'", shell=True).decode().strip()) + "\n")
 
 def main():
     device_information()
