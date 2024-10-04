@@ -137,7 +137,7 @@ def output_information_to_file():
         # Write the information to the file
         with open(file_path, mode) as f:
             time_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"System Report - {time_date}\n")
+            f.write(f"System Report - {time_date}\n\n")
             f.write("Device Information:\n")
             fqdn = socket.getfqdn()
             hostname = fqdn.split('.')[0]
