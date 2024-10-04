@@ -39,17 +39,12 @@ def network_information():
     ip_address = socket.gethostbyname(socket.gethostname())
     gateway = subprocess.check_output("ip route | grep default | awk '{print $3}'", shell=True).decode().strip()
     network_mask = subprocess.check_output("ip route | grep kernel | awk '{print $1}'", shell=True).decode().splitlines()[0].strip()
-    dns1 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()[0].strip()
-    dns2 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().strip()
+    dns_servers = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()
     print("IP Address:\t\t" + str(ip_address))
     print("Gateway:\t\t" + str(gateway))
     print("Network Mask:\t\t" + str(network_mask))
-    print("DNS1:\t\t\t" + str(dns1))
-    if dns2:
-        print("DNS2:\t\t\t" + str(dns2))
-    else:
-        print("\033[91mDNS2:\t\t\tN/A\033[0m")
-
+    for i, dns in enumerate(dns_servers, start=1):
+        print(f"DNS {i}:\t\t{dns}")
 def system_information():
     # Display the operating system, OS version, and kernel version
     print("\033[92mSystem Information:\033[0m")
