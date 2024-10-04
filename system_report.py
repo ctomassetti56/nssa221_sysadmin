@@ -103,6 +103,12 @@ def output_information_to_file():
         f.write("Available Space:\t" + str(available_space) + "\n\n")
         f.write("Processor Information:\n")
         f.write("CPU Model:\t\t" + str(subprocess.check_output("cat /proc/cpuinfo | grep 'model name' | uniq | awk '{print $4, $5, $6, $7, $8, $9}'", shell=True).decode().strip()) + "\n")
+        f.write("Number of Processors:\t" + str(subprocess.check_output("cat /proc/cpuinfo | grep processor | wc -l", shell=True).decode().strip()) + "\n")
+        f.write("Number of Cores:\t" + str(subprocess.check_output("cat /proc/cpuinfo | grep 'cpu cores' | uniq | awk '{print $4}'", shell=True).decode().strip()) + "\n\n")
+        f.write("Memory Information:\n")
+        f.write("Total RAM:\t\t" + str(subprocess.check_output("free -h | grep Mem | awk '{print $2}'", shell=True).decode().strip()) + "\n")
+        f.write("Available RAM:\t\t" + str(subprocess.check_output("free -h | grep Mem | awk '{print $7}'", shell=True).decode().strip()) + "\n")
+        subprocess.run(["xdg-open", "system_report.txt"])
 
 def main():
     device_information()
@@ -118,6 +124,7 @@ def main():
     memory_information()
     print('\n')
     output_information_to_file()
+
 
 if __name__ == '__main__':
     main()
