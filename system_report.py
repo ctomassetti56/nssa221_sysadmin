@@ -7,7 +7,6 @@
 
 import os
 import subprocess
-import platform
 import socket
 
 os.system('clear') # clears the terminal for cleaner look
