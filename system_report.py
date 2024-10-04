@@ -40,7 +40,7 @@ def network_information():
     gateway = subprocess.check_output("ip route | grep default | awk '{print $3}'", shell=True).decode().strip()
     network_mask = subprocess.check_output("ip route | grep kernel | awk '{print $1}'", shell=True).decode().splitlines()[0].strip()
     dns1 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().splitlines()[0].strip()
-    dns2 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $3}'", shell=True).decode().strip()
+    dns2 = subprocess.check_output("cat /etc/resolv.conf | grep nameserver | awk '{print $2}'", shell=True).decode().strip()
     print("IP Address:\t\t" + str(ip_address))
     print("Gateway:\t\t" + str(gateway))
     print("Network Mask:\t\t" + str(network_mask))
