@@ -14,8 +14,9 @@ os.system('clear') # clears the terminal for cleaner look
 
 def device_information():
     print("\033[92mDevice Information:\033[0m")
-    hostname = platform.node()
-    domain = socket.getfqdn()
+    fqdn = socket.getfqdn()
+    hostname = fqdn.split('.')[0]
+    domain = '.'.join(fqdn.split('.')[1:])
     print("Hostname:\t\t" + str(hostname))
     print("Domain:\t\t\t" + str(domain))
 
