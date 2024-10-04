@@ -38,9 +38,18 @@ def network_information():
 
 def system_information():
     print("\033[92mSystem Information:\033[0m")
-    operating_system = platform.platform()
-    os_version = platform.release()
+    
+    # Read OS information from /etc/os-release
+    os_info = {}
+    with open('/etc/os-release') as f:
+        for line in f:
+            key, value = line.strip().split('=', 1)
+            os_info[key] = value.strip('"')
+    
+    operating_system = os_info.get('PRETTY_NAME', 'Unknown OS')
+    os_version = os_info.get('VERSION', 'Unknown Version')
     kernel_version = subprocess.check_output('uname -r', shell=True).decode().strip()
+    
     print("Operating System:\t" + str(operating_system))
     print("OS Version:\t\t" + str(os_version))
     print("Kernel Version:\t\t" + str(kernel_version))
