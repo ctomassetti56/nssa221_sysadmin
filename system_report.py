@@ -44,7 +44,7 @@ def network_information():
     print("Gateway:\t\t" + str(gateway))
     print("Network Mask:\t\t" + str(network_mask))
     for i, dns in enumerate(dns_servers, start=1):
-        print(f"DNS {i}:\t\t{dns}")
+        print(f"DNS {i}:\t\t\t{dns}")
 def system_information():
     # Display the operating system, OS version, and kernel version
     print("\033[92mSystem Information:\033[0m")
