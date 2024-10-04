@@ -117,6 +117,7 @@ def main():
     print('\n')
     memory_information()
     print('\n')
+    output_information_to_file()
 
 if __name__ == '__main__':
     main()
