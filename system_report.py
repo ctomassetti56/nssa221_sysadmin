@@ -38,7 +38,7 @@ def network_information():
 
 def system_information():
     print("\033[92mSystem Information:\033[0m")
-    operating_system = platform.uname().system
+    operating_system = platform.platform()
     os_version = platform.release()
     kernel_version = subprocess.check_output('uname -r', shell=True).decode().strip()
     print("Operating System:\t" + str(operating_system))
