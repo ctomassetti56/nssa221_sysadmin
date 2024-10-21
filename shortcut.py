@@ -53,6 +53,7 @@ def report_symlinks():
 
 def main():
     while True:
+        os.system('clear') # clears the terminal for cleaner look
         print("\033[92mMenu:\033[0m")
         print("1. Create a Symbolic Link")
         print("2. Delete a Symbolic Link")
