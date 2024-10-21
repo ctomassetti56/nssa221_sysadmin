@@ -30,6 +30,7 @@ def create_symlink():
         target_path = input()
         os.symlink(target_path, file_path)
         print(f"\033[92m{file_name} symbolic link created on the Desktop.\033[0m")
+        os.system('clear') # clears the terminal for cleaner look
     
 def delete_symlink():
     # Delete a symbolic link
@@ -61,7 +62,6 @@ def main():
         choice = input("Enter an option: ")
         if choice == '1':
             create_symlink()
-            os.system('clear') # clears the terminal for cleaner look
         elif choice == '2':
             delete_symlink()
         elif choice == '3':
