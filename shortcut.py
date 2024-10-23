@@ -23,7 +23,8 @@ def find_files(query):
     result = []
     try:
         # Using find command to search for files
-        command = f"find / -name '{query}' 2>/dev/null"
+        command = f"sudo find / -name '{query}' 2>/dev/null"
+        print(f"\033[93mRunning command: {command}\033[0m")
         output = subprocess.check_output(command, shell=True).decode().strip().split('\n')
         result = [line for line in output if line]
     except subprocess.CalledProcessError:
