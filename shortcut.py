@@ -19,19 +19,12 @@ def stamp():
     print(f"\033[91mSystem Report - {time_date}\033[0m")
 
 def find_files(query):
-    # Find files matching the query and suppress errors
+    # Find files matching the query using os.walk
     result = []
-    try:
-        # Using find command to search for files
-        command = f"find / -name '{query}' 2>/dev/null"
-        print(f"\033[93mRunning command: {command}\033[0m")  # Debug output
-        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).decode().strip().split('\n')
-        print(f"\033[93mRaw output: {output}\033[0m")  # Debug output
-        result = [line for line in output if line and os.path.exists(line)]
-    except subprocess.CalledProcessError as e:
-        print("\033[91mAn error occurred while searching for files.\033[0m")
-        print(e.output.decode())
-
+    for root, dirs, files in os.walk('/'):
+        for name in files + dirs:
+            if query in name:
+                result.append(os.path.join(root, name))
     return result
 
 def create_symlink():
