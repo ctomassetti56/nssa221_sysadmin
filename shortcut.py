@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
-# @author Christian Tomassetti
-# @nssa221.01
-# @script03 assignment
-# @project symbolic_links
+# Author: Christian Tomassetti
+# NSSA221.01
+# Script03 Assignment
+# Project: Symbolic Links
 
 import os
 import sys
-import datetime
+from datetime import datetime
 from pathlib import Path
 import subprocess
 
@@ -15,7 +15,7 @@ os.system('clear')  # clears the terminal for cleaner look
 
 def stamp():
     # Display the date and time
-    time_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    time_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"\033[91mSystem Report - {time_date}\033[0m")
 
 def find_files(query):
@@ -48,9 +48,11 @@ def create_symlink():
     for index, match in enumerate(matches):
         print(f"{index + 1}: {match}")
 
-    choice = int(input("Select the number corresponding to the file/directory you want to link: "))
-    
-    if choice < 1 or choice > len(matches):
+    try:
+        choice = int(input("Select the number corresponding to the file/directory you want to link: "))
+        if choice < 1 or choice > len(matches):
+            raise ValueError
+    except ValueError:
         print("\033[91mInvalid selection.\033[0m")
         return
 
@@ -65,7 +67,6 @@ def create_symlink():
 
     os.symlink(target_path, symlink_path)
     print(f"\033[92mSymbolic link to '{target_path}' created on the Desktop as '{symlink_path.name}'.\033[0m")
-    os.system('clear')  # clears the terminal for cleaner look
 
 def delete_symlink():
     # Delete a symbolic link
