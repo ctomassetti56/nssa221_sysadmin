@@ -58,8 +58,18 @@ def create_symlink():
 
     # Handle pre-existing symbolic links
     if symlink_path.exists():
-        print(f"\033[91m{symlink_path.name} already exists on the Desktop.\033[0m")
-        return
+        action = input(f"\033[91m{symlink_path.name} already exists on the Desktop. Do you want to (o)verwrite, (s)kip, or (r)ename? ").strip().lower()
+        if action == 'o':
+            os.remove(symlink_path)
+        elif action == 's':
+            print("\033[91mSkipping creation of symbolic link.\033[0m")
+            return
+        elif action == 'r':
+            new_name = input("Enter the new name for the symbolic link: ").strip()
+            symlink_path = desktop_path / new_name
+        else:
+            print("\033[91mInvalid option. Skipping creation of symbolic link.\033[0m")
+            return
 
     os.symlink(target_path, symlink_path)
     print(f"\033[92mSymbolic link to '{target_path}' created on the Desktop as '{symlink_path.name}'.\033[0m")
