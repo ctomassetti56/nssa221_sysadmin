@@ -27,9 +27,9 @@ def find_files(query):
         print(f"\033[93mRunning command: {command}\033[0m")
         output = subprocess.check_output(command, shell=True).decode().strip().split('\n')
         result = [line for line in output if line]
-        print(result)
-    except subprocess.CalledProcessError:
-        pass  # Suppress errors from the command
+    except subprocess.CalledProcessError as e:
+        print("\033[91mAn error occurred while searching for files.\033[0m")
+        print(e)
 
     return result
 
@@ -42,7 +42,7 @@ def create_symlink():
     # Find matching files
     matches = find_files(file_name)
     
-    if not matches:
+    if matches.__len__() == 0:
         print(f"\033[91mNo matches found for '{file_name}'.\033[0m")
         return
 
