@@ -27,7 +27,7 @@ def find_files(query):
         print(f"\033[93mRunning command: {command}\033[0m")  # Debug output
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).decode().strip().split('\n')
         print(f"\033[93mRaw output: {output}\033[0m")  # Debug output
-        result = [line for line in output if os.path.exists(line)]
+        result = [line for line in output if line and os.path.exists(line)]
     except subprocess.CalledProcessError as e:
         print("\033[91mAn error occurred while searching for files.\033[0m")
         print(e.output.decode())
