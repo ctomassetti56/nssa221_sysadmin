@@ -9,34 +9,69 @@ import os
 import sys
 import datetime
 from pathlib import Path
+import subprocess
 
-os.system('clear') # clears the terminal for cleaner look
+os.system('clear')  # clears the terminal for cleaner look
 
 def stamp():
     # Display the date and time
     time_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"\033[91mSystem Report - {time_date}\033[0m")
 
+def find_files(query):
+    # Find files matching the query and suppress errors
+    result = []
+    try:
+        # Using find command to search for files
+        command = f"find / -name '{query}' 2>/dev/null"
+        output = subprocess.check_output(command, shell=True).decode().strip().split('\n')
+        result = [line for line in output if line]
+    except subprocess.CalledProcessError:
+        pass  # Suppress errors from the command
+
+    return result
+
 def create_symlink():
     # Create a symbolic link
     print("\033[92mCreate a Symbolic Link:\033[0m")
-    print("Enter the file name you would like to create a symbolic link for:")
-    file_name = input()
-    file_path = Path(f"{os.path.expanduser('~')}/Desktop/{file_name}")
-    if file_path.exists():
-        print(f"\033[91m{file_name} already exists on the Desktop.\033[0m")
-    else:
-        print("Enter the target path for the symbolic link:")
-        target_path = input()
-        os.symlink(target_path, file_path)
-        print(f"\033[92m{file_name} symbolic link created on the Desktop.\033[0m")
-        os.system('clear') # clears the terminal for cleaner look
+    print("Enter the name of the file or directory you would like to create a symbolic link for:")
+    file_name = input().strip()
     
+    # Find matching files
+    matches = find_files(file_name)
+    
+    if not matches:
+        print(f"\033[91mNo matches found for '{file_name}'.\033[0m")
+        return
+
+    print("\033[93mMatches found:\033[0m")
+    for index, match in enumerate(matches):
+        print(f"{index + 1}: {match}")
+
+    choice = int(input("Select the number corresponding to the file/directory you want to link: "))
+    
+    if choice < 1 or choice > len(matches):
+        print("\033[91mInvalid selection.\033[0m")
+        return
+
+    target_path = matches[choice - 1]
+    desktop_path = Path(os.path.expanduser('~/Desktop'))
+    symlink_path = desktop_path / Path(target_path).name
+
+    # Handle pre-existing symbolic links
+    if symlink_path.exists():
+        print(f"\033[91m{symlink_path.name} already exists on the Desktop.\033[0m")
+        return
+
+    os.symlink(target_path, symlink_path)
+    print(f"\033[92mSymbolic link to '{target_path}' created on the Desktop as '{symlink_path.name}'.\033[0m")
+    os.system('clear')  # clears the terminal for cleaner look
+
 def delete_symlink():
     # Delete a symbolic link
     print("\033[92mDelete a Symbolic Link:\033[0m")
     print("Enter the file name you would like to delete the symbolic link for:")
-    file_name = input()
+    file_name = input().strip()
     file_path = Path(f"{os.path.expanduser('~')}/Desktop/{file_name}")
     if file_path.exists():
         os.remove(file_path)
