@@ -44,12 +44,11 @@ def create_symlink():
     print("\033[93mMatches found:\033[0m")
     for index, match in enumerate(matches):
         print(f"{index + 1}: {match}")
-    
-    # Clear the terminal after displaying matches
-    os.system('clear')
 
     try:
         choice = int(input("Select the number corresponding to the file/directory you want to link: "))
+        # Clear the terminal after the user makes a selection
+        os.system('clear')
         if choice < 1 or choice > len(matches):
             raise ValueError
     except ValueError:
