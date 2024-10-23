@@ -79,6 +79,9 @@ def create_symlink():
 
 def delete_symlink():
     # Delete a symbolic link
+    os.system('clear')  # clears the terminal for cleaner look
+    #show the user the current symbolic links on the desktop
+    report_symlinks()
     print("\033[92mDelete a Symbolic Link:\033[0m")
     print("Enter the file name you would like to delete the symbolic link for:")
     file_name = input().strip()
