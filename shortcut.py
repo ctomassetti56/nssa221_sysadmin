@@ -24,9 +24,10 @@ def find_files(query):
     try:
         # Using find command to search for files
         command = f"find / -name '{query}' 2>/dev/null"
-        print(f"\033[93mRunning command: {command}\033[0m")
-        output = subprocess.run(command, shell=True).decode().strip().split('\n')
-        result = [line for line in output if line]
+        print(f"\033[93mRunning command: {command}\033[0m")  # Debug output
+        output = subprocess.check_output(command, shell=True).decode().strip().split('\n')
+        print(f"\033[93mRaw output: {output}\033[0m")  # Debug output
+        result = [line for line in output if os.path.exists(line)]
     except subprocess.CalledProcessError as e:
         print("\033[91mAn error occurred while searching for files.\033[0m")
         print(e)
@@ -42,7 +43,7 @@ def create_symlink():
     # Find matching files
     matches = find_files(file_name)
     
-    if matches.__len__() == 0:
+    if not matches:
         print(f"\033[91mNo matches found for '{file_name}'.\033[0m")
         return
 
@@ -69,7 +70,7 @@ def create_symlink():
 
     os.symlink(target_path, symlink_path)
     print(f"\033[92mSymbolic link to '{target_path}' created on the Desktop as '{symlink_path.name}'.\033[0m")
-
+    
 def delete_symlink():
     # Delete a symbolic link
     print("\033[92mDelete a Symbolic Link:\033[0m")
