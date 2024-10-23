@@ -119,6 +119,9 @@ def main():
             delete_symlink()
         elif choice == '3':
             report_symlinks()
+            print("\033[92mPress Enter to return to the main menu.\033[0m")
+            input()
+            os.system('clear')
         elif choice == '4':
             sys.exit()
         else:
