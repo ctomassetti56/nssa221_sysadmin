@@ -91,8 +91,10 @@ def delete_symlink():
     file_path = Path(f"{os.path.expanduser('~')}/Desktop/{file_name}")
     if file_path.exists():
         os.remove(file_path)
+        os.system('clear')  # clears the terminal for cleaner look
         print(f"\033[92m{file_name} symbolic link deleted from the Desktop.\033[0m")
     else:
+        os.system('clear')  # clears the terminal for cleaner look
         print(f"\033[91m{file_name} does not exist on the Desktop.\033[0m")
 
 def report_symlinks():
