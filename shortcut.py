@@ -46,7 +46,7 @@ def create_symlink():
         print(f"{index + 1}: {match}")
 
     try:
-        choice = int(input("Select the number corresponding to the file/directory you want to link: "))
+        choice = int(input("Select the number corresponding to the file/directory you want to link... Enter 0 to go back: "))
         # Clear the terminal after the user makes a selection
         os.system('clear')
         if choice == 0:
