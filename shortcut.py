@@ -49,6 +49,9 @@ def create_symlink():
         choice = int(input("Select the number corresponding to the file/directory you want to link: "))
         # Clear the terminal after the user makes a selection
         os.system('clear')
+        if choice == 0:
+            #go back to the main menu
+            return
         if choice < 1 or choice > len(matches):
             raise ValueError
     except ValueError:
