@@ -5,6 +5,17 @@
 # Script03 Assignment
 # Project: Symbolic Links
 
+# A script that allows the user to create, delete, and report on symbolic links on their desktop.
+# The script will display a menu with the following options:
+# 1. Create a Symbolic Link
+# 2. Delete a Symbolic Link
+# 3. Run a Report
+# 4. Exit
+# The user can select an option by entering the corresponding number.
+# The script will prompt the user for additional input as needed.
+# The script will run until the user selects the 'Exit' option.
+
+
 import os
 import sys
 from datetime import datetime
@@ -28,8 +39,8 @@ def find_files(query):
     return result
 
 def create_symlink():
-    os.system('clear')  # clears the terminal for cleaner look
     # Create a symbolic link
+    os.system('clear')  # clears the terminal for cleaner look
     print("\033[92mCreate a Symbolic Link:\033[0m")
     print("Enter the name of the file or directory you would like to create a symbolic link for:")
     file_name = input().strip()
@@ -47,10 +58,9 @@ def create_symlink():
 
     try:
         choice = int(input("Select the number corresponding to the file/directory you want to link... Enter 0 to go back: "))
-        # Clear the terminal after the user makes a selection
-        os.system('clear')
+        os.system('clear') # Clear the terminal after the user makes a selection
         if choice == 0:
-            #go back to the main menu
+            # go back to the main menu
             return
         if choice < 1 or choice > len(matches):
             raise ValueError
@@ -83,8 +93,7 @@ def create_symlink():
 def delete_symlink():
     # Delete a symbolic link
     os.system('clear')  # clears the terminal for cleaner look
-    #show the user the current symbolic links on the desktop
-    report_symlinks()
+    report_symlinks()  #show the user the current symbolic links on the desktop
     print("\033[92mDelete a Symbolic Link:\033[0m")
     print("Enter the file name you would like to delete the symbolic link for:")
     file_name = input().strip()
@@ -106,6 +115,7 @@ def report_symlinks():
             print(f"{file.name} -> {os.readlink(file)}")
 
 def main():
+    # Main menu
     while True:
         print("\033[92mMenu:\033[0m")
         print("1. Create a Symbolic Link")
@@ -128,5 +138,6 @@ def main():
             print("\033[91mInvalid option. Please try again.\033[0m")
 
 if __name__ == "__main__":
+    # Run the main function and display the date and time
     stamp()
     main()
