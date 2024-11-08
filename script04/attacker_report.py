@@ -84,7 +84,7 @@ def main():
     #sort the dictionary by value
     sorted_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=False))
     print("  IP Address\t\t  Failed Attempts\t\tCountry")
-    print("---------------------------------------------------------")
+    print("--------------------------------------------------------------")
     for ip, count in sorted_attempts.items():
         if count >= failed_attempts_allowed:
             match = geolite2.lookup(ip)
