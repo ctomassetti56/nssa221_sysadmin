@@ -27,8 +27,7 @@ import re
 trigger_words = [
     'Failed password for root from',
     'pam_succeed_if(sshd:auth): requirement "uid >= 1000" not met by user',
-    'PAM 5 more authentication failures;',
-    'pam_unix(sshd:auth): authentication failure;',
+    'pam_unix(sshd:auth): authentication failure;'
 ]
 
 # Amount of failed attempts per IP address before being flagged:
@@ -57,11 +56,15 @@ except ImportError:
         print("Success: 'geoip' has been installed.")
         from geoip import geolite2
 
+#date stamp for report
 def report_stamp():
     fullDate = datetime.datetime.now()
     formatDate = fullDate.strftime("%B %d, %Y")
     print("\033[92mAttacker Report\033[0m - " + formatDate)
 
+#read the log file and search for trigger words that indicate a failed login attempt.
+#use regex to find the IP address and store it in a dictionary with the number of failed attempts.
+#use the geoip library to find the country of the IP address.
 def read_log():
     # Use regex to find IP address
     with open('/home/student/Sysadmin/nssa221_sysadmin/script04/syslog.log') as dataFile:
@@ -83,10 +86,12 @@ def main():
     read_log()
     #sort the dictionary by value
     sorted_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=False))
+    #print the IP address, failed attempts, and country header
     print("  IP Address\t\t  Failed Attempts\t\tCountry")
     print("---------------------------------------------------------------")
+    #iterate through the dictionary and print the IP address, failed attempts, and country
     for ip, count in sorted_attempts.items():
-        if count >= failed_attempts_allowed:
+        if count >= failed_attempts_allowed: #only print IP addresses with failed attempts greater than or equal to the allowed amount
             match = geolite2.lookup(ip)
             country = match.country if match else "Unknown"
             print("\033[92m"+str(ip)+"\033[0m\t\t\t\033[91m"+str(count)+"\t\t\t  "+str(country)+"\033[0m")
