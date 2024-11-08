@@ -70,7 +70,7 @@ def report_stamp():
 #use the geoip library to find the country of the IP address.
 def read_log():
     # Use regex to find IP address
-    with open('/home/student/Scripts/SA4/script04/syslog.log') as dataFile:
+    with open('/home/student/Scripts/SA4/syslog.log') as dataFile:
         for line in dataFile:
             for phrase in trigger_words:
                 if phrase in line:
