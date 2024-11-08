@@ -44,19 +44,19 @@ except ImportError:
 
     #NOTE: The code below can be used to automate the installation of the required libraries.
     #NOTE: Uncomment the code below to use the automated installation (YOU MUST HAVE PIP INSTALLED BEFORE RUNNING).
-    # if os.environ.get('VIRTUAL_ENV'):
-    #     os.system('python3 -m pip install python-geoip-python3')
-    #     os.system('python3 -m pip install python-geoip-geolite2')
-    # else:
-    #     os.system('pip3 install python-geoip-python3')
-    #     os.system('pip3 install python-geoip-geolite2')
-    # try:
-    #     from geoip import geolite2
-    # except ImportError:
-    #     print("Error: 'geoip' failed to install. Please try again.")
-    # else:
-    #     print("Success: 'geoip' has been installed.")
-    #     from geoip import geolite2
+    if os.environ.get('VIRTUAL_ENV'):
+        os.system('python3 -m pip install python-geoip-python3')
+        os.system('python3 -m pip install python-geoip-geolite2')
+    else:
+        os.system('pip3 install python-geoip-python3')
+        os.system('pip3 install python-geoip-geolite2')
+    try:
+        from geoip import geolite2
+    except ImportError:
+        print("Error: 'geoip' failed to install. Please try again.")
+    else:
+        print("Success: 'geoip' has been installed.")
+        from geoip import geolite2
 
 #date stamp for report
 def report_stamp():
