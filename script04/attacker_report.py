@@ -64,7 +64,7 @@ def report_stamp():
 
 def read_log():
     # Use regex to find IP address
-    with open('script04/syslog.log') as dataFile:
+    with open('/home/student/Sysadmin/nssa221_sysadmin/script04/syslog.log') as dataFile:
         for line in dataFile:
             for phrase in trigger_words:
                 if phrase in line:
