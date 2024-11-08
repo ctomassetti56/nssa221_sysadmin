@@ -82,8 +82,8 @@ def main():
     print()
     read_log()
     #sort the dictionary by value
-    failed_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=True))
-    for ip, count in failed_attempts.items():
+    sorted_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=False))
+    for ip, count in sorted_attempts.items():
         if count >= failed_attempts_allowed:
             match = geolite2.lookup(ip)
             country = match.country if match else "Unknown"
