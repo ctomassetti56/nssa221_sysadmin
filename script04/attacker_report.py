@@ -83,13 +83,13 @@ def main():
     read_log()
     #sort the dictionary by value
     sorted_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=False))
-    print("IP Address\t\t  Failed Attempts\t\tCountry")
+    print("  IP Address\t\t Failed Attempts\t\tCountry")
     print("---------------------------------------------------------")
     for ip, count in sorted_attempts.items():
         if count >= failed_attempts_allowed:
             match = geolite2.lookup(ip)
             country = match.country if match else "Unknown"
-            print(f"{ip}\t\t\t{count}\t\t\t{country}")
+            print(f"{ip}\t\t\t{count}\t\t\t {country}")
 
 if __name__ == "__main__":
     main()
