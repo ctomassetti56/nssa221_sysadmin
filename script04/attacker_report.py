@@ -83,7 +83,7 @@ def main():
     read_log()
     #sort the dictionary by value
     sorted_attempts = dict(sorted(failed_attempts.items(), key=lambda item: item[1], reverse=False))
-    print("  IP Address\t\tFailed Attempts\t\tCountry")
+    print("  IP Address\t\t  Failed Attempts\t\tCountry")
     print("---------------------------------------------------------")
     for ip, count in sorted_attempts.items():
         if count >= failed_attempts_allowed:
