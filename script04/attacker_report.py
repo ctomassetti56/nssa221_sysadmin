@@ -87,7 +87,9 @@ def main():
         if count >= failed_attempts_allowed:
             match = geolite2.lookup(ip)
             country = match.country if match else "Unknown"
-            print(f"\033[91m{count}\033[0m failed attempts from \033[91m{ip}\033[0m located in \033[91m{country}\033[0m")
+            print("IP Address\t\tFailed Attempts\tCountry")
+            print("---------------------------------------------------------")
+            print(f"{ip}\t{count}\t\t{country}")
 
 if __name__ == "__main__":
     main()
